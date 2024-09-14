@@ -1,0 +1,117 @@
+{
+	"info": {
+		"_postman_id": "9ad7e682-1b94-4c51-888e-314d35b0c70a",
+		"name": "smartJobCollection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13436617"
+	},
+	"item": [
+		{
+			"name": "pruebaSumar",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqdWFuMkByb2RyaWd1ZXoub3JnIiwiaWF0IjoxNzI2MzAwNTgxLCJleHAiOjE3MjYzMzY1ODF9.nKuxNIU_WPbDQfSt3n-xzuEGI_GvQc7yt38us4LTR9aZJrmnITyuEpzd8Ep1eVeu5ZhaEKN2P0p2TQUjpakOnw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8090/users/v1/sumar/18/97113",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"users",
+						"v1",
+						"sumar",
+						"18",
+						"97113"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "generateToken",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"oli@correro.com\",\n    \"password\": \"ragnar\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8090/auth/v1/api/generateToken",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"auth",
+						"v1",
+						"api",
+						"generateToken"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "crearUsuario",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8090/usuarios/v1/api",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"usuarios",
+						"v1",
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "findById",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8090/usuarios/v1/api/3057a5db-3fbe-4b4b-a14b-164a56c92870",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"usuarios",
+						"v1",
+						"api",
+						"3057a5db-3fbe-4b4b-a14b-164a56c92870"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
