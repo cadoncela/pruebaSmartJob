@@ -1,0 +1,170 @@
+swagger: '2.0'
+# You should specify common part of your endpoints in the following format:
+#   <schemes>://<host><basepath>
+schemes:
+  - http # Remove if your API doesn't support HTTP
+host: localhoste:8090
+basePath: /auth/api/v1
+info:
+  description: |
+    Aplicación backend que expone servicios API-REST para creación de usuarios con generación de token para acceder a los metodos privados del sistema. La apicación se construyó con una arquitectura hexagonal, respetando el principio de separación entre las capas de Dominio, de Aplicación y de Infraestructura. Del mismo modo se aplicaron los principios de Segregación de Interfaces, Inversión de Dependencias, de Sustitución de Liskov y de Abierto-Cerrado.Del mismo modo, cuenta con el archivo swager de la documentación
+  version: '1.0.0'
+  title: pruebaUsuarios
+  contact:
+    email: cadoncela@gmail.com
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+  x-logo:
+    url: 'https://apis.guru/openapi-template/logo.png'
+externalDocs:
+  description: Find out how to create Github repo for your OpenAPI spec.
+  url: 'https://github.com/Rebilly/generator-openapi-repo'
+produces:
+  - application/json
+consumes:
+  - application/json
+tags:
+  - name: /createUser
+    description: Crear usuario con Token
+  - name: /generateToken
+    description: Método para generar Token a un usuario registrado
+  - name: /findById
+    description: Obtener usuario por id
+# Security scheme definitions that can be used across the specification.
+securityDefinitions:
+  main_auth: # security definition name (you can name it as you want)
+    type: oauth2 # authorization type, one of: oauth2, basic, apiKey
+    # the following options are specific to oauth2 type
+    authorizationUrl: 'http://example.com/api/oauth/dialog'
+    flow: implicit
+    scopes:
+      'read:users': read users info
+      'write:users': modify or remove users
+  api_key: # security definition name (you can name it as you want)
+    type: apiKey
+    # The following options are specific to apiKey type
+    in: header # Where API key will be passed: header or query
+    name: api_key # API key parameter name
+  basic_auth: # security definition name (you can name it as you want)
+    type: basic
+
+# Holds the relative paths to the individual endpoints. The path is appended to the
+# basePath in order to construct the full URL. 
+paths:
+  '/v1/api/{id}': # path parameter in curly braces
+    # documentation for GET operation for this path
+    # parameters list that are used with each operation for this path
+    parameters:
+      - name: id
+        in: path # place where parameter is passed: path, header, query or body, formData
+        description: id del usuario a consultar
+        # type of the parameter: string, number, integer, boolean, array
+        type: string
+        required: true
+    get:
+      tags:
+        - findById
+      # summary is up to 120 symbold but we recommend to be shortest as possible
+      summary: Obtener usuario por id
+      # operationId should be unique across the whole specification
+      operationId: findById
+      # list of parameters for the operation
+      parameters:
+        - name: id
+          in: path
+          description: 'id del usuario'
+          required: true
+          type: string
+      # security schemas applied to this operation
+      security:
+        - main_auth:
+            - 'read:users' # for auth2 provide list of scopes here
+        - api_key: []
+      # overwriting default global produces
+      produces:
+        - application/json
+      responses: # list of responses
+        '200':
+          description: Success
+          schema: # response schema can be specified for each response
+            $ref: '#/definitions/UsuarioResponse'
+          examples:
+            # response samples for each type operation produces
+            application/json:
+              id: 3057a5db-3fbe-4b4b-a14b-164a56c92870
+              created: 2024-09-14T09:02:46.1466
+              modified: 2024-09-14T09:02:46.1466
+              lastLogin: 2024-09-14T09:02:46.1466
+              token: KJHCD646DCSDC64SDC
+              isActive: True
+
+        '403':
+          description: Forbidden
+        '404':
+          description: User not found
+    # documentation for PUT operation for this path
+  '/createUser':
+    post:
+      tags:
+        - createUser
+      summary: Creacion de usarios con Token
+      operationId: save
+      parameters:
+        - name: UsuarioCreateRequest
+          in: body
+          description: 'Usuario'
+          required: true
+          schema:
+            type: object
+      security:
+        - api_key: []
+      responses:
+        '201':
+          description: 'CREATED'
+          examples:
+            application/json:
+              id: 3057a5db-3fbe-4b4b-a14b-164a56c92870
+              created: 2024-09-14T09:02:46.1466
+              modified: 2024-09-14T09:02:46.1466
+              lastLogin: 2024-09-14T09:02:46.1466
+              token: KJHCD646DCSDC64SDC
+              isActive: True
+          schema:
+            type: string
+definitions:
+  UsuarioResponse:
+    type: object
+    properties:
+      id:
+        description: id
+        type: string
+        minLength: 4
+        example: 3057a5db-3fbe-4b4b-a14b-164a56c9287
+      created:
+        description: User first name
+        type: string
+        format: date
+        minLength: 1
+        example: 2024-09-14T09:02:46.1466
+      modified:
+        description: modificado
+        type: string
+        format: date
+        minLength: 1
+        example: 2024-09-14T09:02:46.1466
+      lastLogin:
+        description: ultimo ingreso
+        type: string
+        format: date
+        minLength: 1
+        example: 2024-09-14T09:02:46.1466
+      token:
+        description: token de acceso
+        type: string
+        minLength: 4
+        example: 3057a5db98464645464jhhbjhgu
+      isActive:
+        description: Indicador si el usuario está activo
+        type: boolean
+        example: TRUE

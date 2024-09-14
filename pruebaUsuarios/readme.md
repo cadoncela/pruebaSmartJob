@@ -22,6 +22,9 @@ La aplicación usa base de datos H2 y se insertan datos de prueba al momento de 
 Para consumir los servicios REST se debe usar la colección Postman "smartJobCollection.postman_collection.json". 
 En la cual se encuentran los servicios públicos y privados mencionados anteriormente.
 
+## Documentación
+En la ruta /generated/swagger-ui se encuantra el archivo swagger.yaml con la documentación de las APIs
+
 ## Contributing
 
 Pull requests are welcome. For major changes, please open an issue first
