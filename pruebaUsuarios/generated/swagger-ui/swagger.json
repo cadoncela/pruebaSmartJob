@@ -1,0 +1,26 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "Administración de usuarios con Token",
+    "version" : "v1",
+    "title" : "pruebaUsuarios",
+    "termsOfService" : "http://www.yourterms.com",
+    "contact" : {
+      "name" : "Your Name",
+      "url" : "http://www.contact-url.com",
+      "email" : "your-email@email.com"
+    },
+    "license" : {
+      "name" : "Commercial",
+      "url" : "http://www.licence-url.com"
+    }
+  },
+  "host" : "localhost:8090",
+  "basePath" : "/api-doc",
+  "schemes" : [ "http", "https" ],
+  "securityDefinitions" : {
+    "basicAuth" : {
+      "type" : "basic"
+    }
+  }
+}

@@ -36,12 +36,10 @@ public class TokenGeneratorImpl implements TokenGeneratorPort {
 
     public String createToken(Map<String, Object> claims, String userName) {
         Date expiration = new Date(System.currentTimeMillis() + (EXPIRATION*10));
-
         String token = Jwts.builder()
                 .setClaims(claims)
                 .setSubject(userName)
                 .setIssuedAt(new Date())
-                //.signWith(Keys.hmacShaKeyFor(SECRET.getBytes()))
                 .signWith(Keys.hmacShaKeyFor(SECRET.getBytes(StandardCharsets.UTF_8)), SignatureAlgorithm.HS512)
                 .setExpiration(expiration)
                 .compact();

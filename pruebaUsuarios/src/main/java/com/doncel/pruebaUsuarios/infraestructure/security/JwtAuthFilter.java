@@ -1,6 +1,8 @@
 package com.doncel.pruebaUsuarios.infraestructure.security;
 
+import com.doncel.pruebaUsuarios.application.ports.input.UsuarioServicePort;
 import com.doncel.pruebaUsuarios.application.ports.output.TokenGeneratorPort;
+import com.doncel.pruebaUsuarios.domain.model.Usuario;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -15,6 +17,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 /**
  * @author Oliver & Ragnar
@@ -24,6 +27,7 @@ import java.io.IOException;
 public class JwtAuthFilter extends OncePerRequestFilter {
     private final TokenGeneratorPort tokenGenerator;
     private final UserDetailServiceImpl userDetailsService;
+    private final UsuarioServicePort usuarioServicePort;
 
 
     @Override
@@ -55,8 +59,14 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(authToken);
             }
         }
-
+        actualizarUsuario(username);
         // Continue the filter chain
         filterChain.doFilter(request, response);
+    }
+
+    private void actualizarUsuario(String email){
+        Usuario usuarioSaved = usuarioServicePort.findOneByEmail(email);
+        usuarioSaved.setLastLogin(LocalDateTime.now());
+        usuarioServicePort.update(usuarioSaved.getId(), usuarioSaved);
     }
 }

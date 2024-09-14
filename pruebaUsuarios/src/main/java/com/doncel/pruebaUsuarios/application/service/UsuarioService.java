@@ -53,6 +53,7 @@ public class UsuarioService implements UsuarioServicePort {
                     usuarioSaved.setIsActive(usuario.getIsActive());
                     usuarioSaved.setModified(LocalDateTime.now());
                     usuarioSaved.setToken(generateToken(usuario.getEmail()));
+                    usuarioSaved.setLastLogin(usuario.getLastLogin());
                     return persistencePort.save(usuarioSaved);
                 })
                .orElseThrow();
